@@ -14,9 +14,26 @@ services:
     networks:
       - traefik-network
       
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    restart: unless-stopped
+    environment:
+      - GF_SERVER_DOMAIN=grafana.${APPDOMAIN:-local}
+      - GF_SERVER_ROOT_URL=https://%(domain)s/
+    labels:
+      - "traefik.http.routers.grafana.rule=Host(`grafana.${APPDOMAIN:-local}`)"
+      - "traefik.http.routers.grafana.entrypoints=websecure"
+      - "traefik.http.services.grafana.loadbalancer.server.port=3000"
+    volumes:
+      - grafana-storage:/var/lib/grafana
+    networks:
+      - traefik-network
+      
 volumes:
   prometheus-storage:
   prometheus-config:
+  grafana-storage:
 
 networks:
     traefik-network:
