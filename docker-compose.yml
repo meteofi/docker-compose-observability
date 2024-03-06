@@ -8,6 +8,8 @@ services:
       - "traefik.http.routers.prometheus.entrypoints=websecure"
       - "traefik.http.routers.prometheus.rule=Host(`prometheus.${APPDOMAIN:-local}`)"
       - "traefik.http.services.prometheus.loadbalancer.server.port=9090"
+      - "traefik.http.routers.whoami.middlewares=auth"
+      - "traefik.http.middlewares.auth.basicauth.users=test:$$2y$$12$$ci.4U63YX83CwkyUrjqxAucnmi2xXOIlEF6T/KdP9824f1Rf1iyNG"
     volumes:
       - prometheus-storage:/prometheus
       - prometheus-config:/etc/prometheus
