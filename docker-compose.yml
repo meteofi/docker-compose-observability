@@ -9,7 +9,7 @@ services:
       - "traefik.http.routers.prometheus.rule=Host(`prometheus.${APPDOMAIN:-local}`)"
       - "traefik.http.services.prometheus.loadbalancer.server.port=9090"
       - "traefik.http.routers.prometheus.middlewares=auth"
-      - "traefik.http.middlewares.auth.basicauth.users=mikkorauhala:$$apr1$$8o0nzfxa$i5M5eq8FhDsxVdFExiUJN0"
+      - "traefik.http.middlewares.auth.basicauth.users=mikkorauhala:$$apr1$$Yj9Ud8Dc$$6KeZVZktED3bfMnq2BnUA."
     volumes:
       - prometheus-storage:/prometheus
       - prometheus-config:/etc/prometheus
